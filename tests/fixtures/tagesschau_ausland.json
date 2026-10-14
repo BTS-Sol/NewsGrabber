@@ -1,0 +1,66 @@
+{
+  "news": [
+    {
+      "sophoraId": "klimafonds-nairobi-100",
+      "externalId": "tagesschau_fm-story-klimafonds",
+      "title": "Klimakonferenz in Nairobi einigt sich auf Anpassungsfonds",
+      "topline": "Vereinte Nationen",
+      "date": "2026-10-14T03:12:45.120+02:00",
+      "firstSentence": "Nach zweiwöchigen Verhandlungen haben sich die Teilnehmerstaaten der UN-Klimakonferenz in Nairobi auf einen gemeinsamen Fonds zur Anpassung an den Klimawandel geeinigt.",
+      "content": [
+        {"value": "<strong>Nach zweiwöchigen Verhandlungen haben sich die Teilnehmerstaaten der UN-Klimakonferenz in Nairobi auf einen gemeinsamen Fonds zur Anpassung an den Klimawandel geeinigt.</strong>", "type": "text"},
+        {"value": "Der Fonds soll ab 2028 jährlich mindestens 40 Milliarden US-Dollar bereitstellen. Das Geld ist vor allem für Staaten in Afrika und Südasien vorgesehen, die besonders unter Dürren und Überschwemmungen leiden.", "type": "text"},
+        {"value": "Hintergrund", "type": "headline"},
+        {"value": "Die Verhandlungen waren in der Nacht mehrfach unterbrochen worden, weil sich Industrie- und Schwellenländer nicht über die Verteilung der Beiträge einigen konnten. Am Ende einigten sich die Delegationen auf einen Kompromiss, nach dem auch große Schwellenländer freiwillig einzahlen können.", "type": "text"},
+        {"value": "Umweltverbände begrüßten die Einigung grundsätzlich, kritisierten aber, dass konkrete Zusagen zum Ausstieg aus fossilen Energien fehlen. Die nächste Klimakonferenz findet im November 2027 statt.", "type": "text"}
+      ],
+      "tags": [{"tag": "Klimakonferenz"}, {"tag": "Klimawandel"}, {"tag": "Vereinte Nationen"}],
+      "ressort": "ausland",
+      "breakingNews": false,
+      "type": "story",
+      "shareURL": "{BASE}/artikel/tagesschau-klimafonds.html",
+      "detailsweb": "{BASE}/artikel/tagesschau-klimafonds.html"
+    },
+    {
+      "sophoraId": "erdbeben-peru-102",
+      "title": "Schweres Erdbeben erschüttert den Süden Perus",
+      "topline": "Peru",
+      "date": "2026-10-13T22:40:00.000+02:00",
+      "firstSentence": "Ein Erdbeben der Stärke 6,8 hat den Süden Perus erschüttert.",
+      "content": [
+        {"value": "Ein Erdbeben der Stärke 6,8 hat den Süden Perus erschüttert. Das Epizentrum lag nach Angaben des geophysikalischen Instituts rund 60 Kilometer südwestlich der Stadt Arequipa in einer Tiefe von 35 Kilometern.", "type": "text"},
+        {"value": "Mindestens zwölf Menschen kamen ums Leben, mehr als 150 wurden verletzt. In mehreren Orten stürzten Häuser ein, Straßen wurden durch Erdrutsche blockiert.", "type": "text"},
+        {"value": "Die Regierung rief für drei Provinzen den Notstand aus und schickte Rettungskräfte und das Militär in die betroffenen Gebiete. Eine Tsunami-Warnung wurde nicht ausgegeben.", "type": "text"}
+      ],
+      "tags": [{"tag": "Peru"}, {"tag": "Erdbeben"}],
+      "ressort": "ausland",
+      "breakingNews": true,
+      "type": "story",
+      "shareURL": "{BASE}/artikel/tagesschau-erdbeben.html"
+    },
+    {
+      "sophoraId": "sudan-gespraeche-103",
+      "title": "Konfliktparteien im Sudan verhandeln über Waffenruhe",
+      "topline": "Sudan",
+      "date": "2026-10-13T19:05:00.000+02:00",
+      "firstSentence": "Vertreter der sudanesischen Armee und der RSF-Miliz sind in Dschidda zu indirekten Gesprächen über eine Waffenruhe zusammengekommen.",
+      "content": [
+        {"value": "Vertreter der sudanesischen Armee und der RSF-Miliz sind in Dschidda zu indirekten Gesprächen über eine Waffenruhe zusammengekommen. Vermittelt werden die Gespräche von Saudi-Arabien und den USA.", "type": "text"},
+        {"value": "Ziel ist zunächst eine humanitäre Feuerpause von 14 Tagen, damit Hilfsorganisationen die Region Darfur erreichen können. Nach UN-Angaben sind dort mehr als drei Millionen Menschen auf Nahrungsmittelhilfe angewiesen.", "type": "text"},
+        {"value": "Frühere Vereinbarungen waren immer wieder gebrochen worden. Beobachter rechnen deshalb nicht mit einem schnellen Durchbruch.", "type": "text"}
+      ],
+      "tags": [{"tag": "Sudan"}],
+      "ressort": "ausland",
+      "type": "story",
+      "shareURL": "{BASE}/artikel/tagesschau-sudan.html"
+    },
+    {
+      "sophoraId": "video-104",
+      "title": "Video: Bilder aus Arequipa",
+      "date": "2026-10-14T05:00:00.000+02:00",
+      "type": "video",
+      "shareURL": "{BASE}/video/1.html"
+    }
+  ],
+  "regional": []
+}

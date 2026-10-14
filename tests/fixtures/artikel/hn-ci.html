@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Why we moved our CI from containers back to virtual machines</title>
+<meta property="article:published_time" content="2026-10-13T17:00:00Z"></head>
+<body><article>
+<h1>Why we moved our CI from containers back to virtual machines</h1>
+<p>For five years our continuous integration ran entirely in containers on a shared Kubernetes cluster. Last quarter we moved most of it back to short-lived virtual machines.</p>
+<p>The main reason was isolation: several builds needed privileged access to test kernel modules, which forced us to weaken the security settings of the whole cluster.</p>
+<p>Build times increased by about 8 percent, but flaky tests dropped by more than half because jobs no longer competed for the same node resources.</p>
+<p>We also cut our monthly infrastructure bill by 15 percent, since idle capacity on the cluster no longer had to be reserved for peak load.</p>
+</article></body></html>

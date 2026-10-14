@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="NewsGrabber {{ version }}">
+<title>{{ b.title }} – {{ b.date | longdate }}</title>
+<style>
+  :root {
+    --bg: #f6f5f1; --paper: #ffffff; --ink: #1d1d1b; --muted: #66645e; --line: #e2dfd6;
+    --accent: #0f5d8c; --accent-soft: #e5f0f7; --chip: #f0eee8; --warn: #9a3b12;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #151514; --paper: #1e1e1c; --ink: #ecebe6; --muted: #a3a197; --line: #34332f;
+      --accent: #6db6e6; --accent-soft: #1b2b36; --chip: #2a2926; --warn: #f0a37c;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.6 "Source Serif Pro", Georgia, "Times New Roman", serif;
+  }
+  .page { max-width: 820px; margin: 0 auto; padding: 32px 16px 64px; }
+  header.masthead { border-bottom: 3px double var(--ink); padding-bottom: 14px; margin-bottom: 24px; }
+  .eyebrow, .meta, nav, .chips, .sources, footer, .badge, h2, .glance-cat {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  .eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: 12px; color: var(--muted); margin: 0; }
+  h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.15; margin: 4px 0 6px; }
+  .meta { color: var(--muted); font-size: 14px; margin: 0; }
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+  nav.toc a {
+    display: inline-block; padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px;
+    color: var(--ink); text-decoration: none; font-size: 14px; background: var(--paper);
+  }
+  nav.toc a:hover { border-color: var(--accent); color: var(--accent); }
+  .glance { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 18px 22px; }
+  .glance h2 { margin-top: 0; }
+  .glance ol { margin: 0; padding-left: 22px; }
+  .glance li { margin: 6px 0; }
+  .glance a { color: var(--ink); text-decoration: none; }
+  .glance a:hover { color: var(--accent); text-decoration: underline; }
+  .glance-cat { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--accent); margin-right: 6px; }
+  h2 {
+    font-size: 15px; text-transform: uppercase; letter-spacing: .14em; color: var(--accent);
+    border-bottom: 1px solid var(--line); padding-bottom: 6px; margin: 40px 0 8px;
+  }
+  article.story { padding: 18px 0 20px; border-bottom: 1px solid var(--line); }
+  article.story:last-child { border-bottom: 0; }
+  article.story h3 { font-size: 22px; line-height: 1.3; margin: 0 0 6px; }
+  article.story h3 .rank { color: var(--muted); font-weight: normal; margin-right: 4px; }
+  .story .meta { margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; }
+  .badge {
+    display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 4px;
+    background: var(--accent-soft); color: var(--accent); font-weight: 600;
+  }
+  .badge.update { background: transparent; border: 1px solid var(--warn); color: var(--warn); }
+  .summary { margin: 0 0 10px; }
+  .facts { margin: 0 0 10px; padding: 10px 16px 10px 30px; background: var(--paper); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; }
+  .facts li { margin: 3px 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; padding: 0; list-style: none; }
+  .chips li { font-size: 12.5px; background: var(--chip); border-radius: 4px; padding: 2px 8px; color: var(--muted); }
+  .sources { font-size: 13.5px; color: var(--muted); margin: 6px 0 0; }
+  .sources a { color: var(--accent); text-decoration: none; }
+  .sources a:hover { text-decoration: underline; }
+  .scores { font: 12px ui-monospace, SFMono-Regular, Consolas, monospace; color: var(--muted); }
+  .note { color: var(--muted); font-style: italic; }
+  footer { margin-top: 40px; padding-top: 14px; border-top: 3px double var(--ink); font-size: 13px; color: var(--muted); }
+  footer p { margin: 6px 0; }
+  footer .failed { color: var(--warn); }
+  @media print {
+    body { background: #fff; color: #000; font-size: 11pt; }
+    .page { max-width: none; padding: 0; }
+    nav.toc { display: none; }
+    article.story { break-inside: avoid; }
+    .sources a { color: #000; }
+    .sources a::after { content: " <" attr(href) ">"; font-size: 8pt; word-break: break-all; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="masthead">
+    <p class="eyebrow">{{ b.title }}</p>
+    <h1>{{ b.date | longdate }}</h1>
+    <p class="meta">Nachrichtenlage {{ b.window_start | dt }} bis {{ b.window_end | dt }} · {{ b.stats.get("stories_selected", 0) }} Meldungen aus {{ b.stats.get("sources_used", 0) }} Quellen · ca. {{ b.word_count | thousands }} Wörter</p>
+    <nav class="toc" aria-label="Kategorien">
+      {% for section in b.sections %}<a href="#{{ section.key }}">{{ section.title }} ({{ section.items | length }})</a>{% endfor %}
+    </nav>
+  </header>
+
+  {% if b.top_items %}
+  <section class="glance" aria-labelledby="glance-title">
+    <h2 id="glance-title">Auf einen Blick</h2>
+    <ol>
+      {% for item in b.top_items %}
+      <li><span class="glance-cat">{{ labels[item.category] }}</span><a href="#{{ item.anchor }}">{{ item.headline }}</a></li>
+      {% endfor %}
+    </ol>
+  </section>
+  {% endif %}
+
+  {% for section in b.sections %}
+  <section id="{{ section.key }}" aria-labelledby="{{ section.key }}-title">
+    <h2 id="{{ section.key }}-title">{{ section.title }}</h2>
+    {% if section.note %}<p class="note">{{ section.note }}</p>{% endif %}
+    {% for item in section.items %}
+    <article class="story" id="{{ item.anchor }}">
+      <h3><span class="rank">{{ item.rank }}.</span>{{ item.headline }}</h3>
+      <div class="meta">
+        {% if item.topic %}<span class="badge">{{ item.topic }}</span>{% endif %}
+        {% if item.history == "fortsetzung" %}<span class="badge update">Fortsetzung</span>{% elif item.history == "wiederholung" %}<span class="badge update">bereits berichtet</span>{% endif %}
+        <span>{{ rel(item.published) }}</span>
+        {% if item.language != "de" %}<span>Quelle auf {{ "Englisch" if item.language == "en" else item.language }}</span>{% endif %}
+      </div>
+      {% if item.summary %}<p class="summary">{{ item.summary }}</p>{% endif %}
+      {% if item.facts %}
+      <ul class="facts">
+        {% for fact in item.facts %}<li>{{ fact }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+      {% if item.keywords %}
+      <ul class="chips" aria-label="Schlagwörter">
+        {% for keyword in item.keywords %}<li>{{ keyword }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+      <p class="sources">Quellen:
+        {% for s in item.sources %}<a href="{{ s.url }}" rel="noopener" target="_blank">{{ s.name }}</a>{% if s.published %} ({{ rel(s.published) }}){% endif %}{% if not loop.last %} · {% endif %}{% endfor %}
+      </p>
+      {% if show_scores %}
+      <p class="scores">Bewertung {{ "%.2f" | format(item.score) }} – {% for k, v in item.score_parts.items() %}{{ k }} {{ v }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </section>
+  {% endfor %}
+
+  <footer>
+    {% if show_source_status and b.failed_sources %}
+    <p class="failed"><strong>Nicht erreichbare Quellen:</strong>
+      {% for r in b.failed_sources %}{{ r.name }}{% if r.consecutive_failures > 1 %} (seit {{ r.consecutive_failures }} Läufen){% endif %}{% if not loop.last %}, {% endif %}{% endfor %}
+    </p>
+    {% endif %}
+    {% for note in b.notes %}<p>Hinweis: {{ note }}</p>{% endfor %}
+    <p>{% for note in method_notes %}{{ note }} {% endfor %}Die Rechte an den Originalberichten liegen bei den genannten Quellen.</p>
+    <p>Erstellt am {{ generated }} mit NewsGrabber {{ version }}.</p>
+  </footer>
+</div>
+</body>
+</html>

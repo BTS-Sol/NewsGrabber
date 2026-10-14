@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+<channel>
+  <title>BBC News - World (test data)</title>
+  <link>{BASE}/</link>
+  <description>Test feed</description>
+  <item>
+    <title>Climate talks in Nairobi agree new adaptation fund</title>
+    <description>Countries at the UN climate summit in Nairobi have agreed to set up a fund of at least $40bn a year from 2028 to help nations adapt to climate change.</description>
+    <link>{BASE}/artikel/bbc-climate.html</link>
+    <pubDate>Wed, 14 Oct 2026 00:40:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>EU foreign ministers back new sanctions package against shipping network</title>
+    <description>European Union foreign ministers have approved a new package of sanctions targeting a network of shipping companies accused of evading earlier restrictions. The measures include asset freezes on 23 companies and travel bans for nine individuals.</description>
+    <link>{BASE}/artikel/bbc-sanctions.html</link>
+    <pubDate>Tue, 13 Oct 2026 14:10:00 GMT</pubDate>
+  </item>
+</channel>
+</rss>

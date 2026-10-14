@@ -1,0 +1,11 @@
+# Pflicht-Abhängigkeiten (Python >= 3.10)
+requests>=2.31
+feedparser>=6.0
+trafilatura>=1.12
+beautifulsoup4>=4.12
+lxml>=5.0
+PyYAML>=6.0
+Jinja2>=3.1
+snowballstemmer>=2.2
+# Zeitzonendaten für Europe/Berlin – unter Windows zwingend
+tzdata>=2024.1; sys_platform == "win32"

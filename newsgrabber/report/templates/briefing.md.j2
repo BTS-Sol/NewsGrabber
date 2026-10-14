@@ -1,0 +1,55 @@
+# {{ b.title }} – {{ b.date | longdate }}
+
+*Nachrichtenlage {{ b.window_start | dt }} bis {{ b.window_end | dt }} · {{ b.stats.get("stories_selected", 0) }} Meldungen aus {{ b.stats.get("sources_used", 0) }} Quellen*
+
+{% if b.top_items %}
+## Auf einen Blick
+
+{% for item in b.top_items %}
+- **{{ labels[item.category] | md }}:** {{ item.headline | md }}
+{% endfor %}
+
+{% endif %}
+{% for section in b.sections %}
+## {{ section.title | md }}
+
+{% if section.note %}
+*{{ section.note }}*
+
+{% endif %}
+{% for item in section.items %}
+### {{ item.rank }}. {{ item.headline | md }}
+
+{{ md_meta(item) }}
+
+{% if item.summary %}
+{{ item.summary | md }}
+
+{% endif %}
+{% if item.facts %}
+**Fakten:**
+
+{% for fact in item.facts %}
+- {{ fact | md }}
+{% endfor %}
+
+{% endif %}
+Quellen: {{ md_sources(item) }}
+
+{% if show_scores %}
+`Bewertung {{ "%.2f" | format(item.score) }} – {{ item.score_parts.items() | map("join", " ") | join(", ") }}`
+
+{% endif %}
+{% endfor %}
+{% endfor %}
+---
+
+{% if show_source_status and b.failed_sources %}
+**Nicht erreichbare Quellen:** {{ failed_sources_text }}
+
+{% endif %}
+{% for note in b.notes %}
+*Hinweis: {{ note | md }}*
+
+{% endfor %}
+*{{ method_notes | join(" ") }} Die Rechte an den Originalberichten liegen bei den genannten Quellen. Erstellt am {{ generated }} mit NewsGrabber {{ version }} · ca. {{ b.word_count | thousands }} Wörter.*

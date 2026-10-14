@@ -1,0 +1,64 @@
+{
+  "news": [
+    {
+      "sophoraId": "pflege-reform-200",
+      "title": "Bundestag beschließt Reform der Pflegeversicherung",
+      "topline": "Pflege",
+      "date": "2026-10-13T17:30:00.000+02:00",
+      "firstSentence": "Der Bundestag hat eine Reform der Pflegeversicherung beschlossen, die höhere Beiträge und bessere Leistungen für pflegende Angehörige vorsieht.",
+      "content": [
+        {"value": "Der Bundestag hat eine Reform der Pflegeversicherung beschlossen, die höhere Beiträge und bessere Leistungen für pflegende Angehörige vorsieht. Für das Gesetz stimmten 371 Abgeordnete, 262 stimmten dagegen.", "type": "text"},
+        {"value": "Der Beitragssatz steigt zum 1. Januar 2027 um 0,3 Prozentpunkte auf 3,9 Prozent. Kinderlose zahlen wie bisher einen Zuschlag.", "type": "text"},
+        {"value": "Im Gegenzug wird das Pflegegeld um fünf Prozent erhöht. Außerdem sollen pflegende Angehörige künftig bis zu 20 Tage im Jahr bezahlt freigestellt werden können.", "type": "text"},
+        {"value": "Die Opposition kritisierte, die Reform belaste vor allem Beschäftigte und löse die strukturellen Finanzprobleme der Pflegekassen nicht. Der Bundesrat muss dem Gesetz noch zustimmen; die Länderkammer befasst sich am 7. November damit.", "type": "text"}
+      ],
+      "tags": [{"tag": "Pflegeversicherung"}, {"tag": "Bundestag"}],
+      "ressort": "inland",
+      "type": "story",
+      "shareURL": "{BASE}/artikel/tagesschau-pflege.html"
+    },
+    {
+      "sophoraId": "bahn-streik-201",
+      "title": "Lokführergewerkschaft kündigt Streik für Donnerstag an",
+      "topline": "Deutsche Bahn",
+      "date": "2026-10-14T05:20:00.000+02:00",
+      "firstSentence": "Die Lokführergewerkschaft GDL hat für Donnerstag einen bundesweiten Streik im Personen- und Güterverkehr der Deutschen Bahn angekündigt.",
+      "content": [
+        {"value": "Die Lokführergewerkschaft GDL hat für Donnerstag einen bundesweiten Streik im Personen- und Güterverkehr der Deutschen Bahn angekündigt. Der Ausstand soll um 2 Uhr beginnen und 24 Stunden dauern.", "type": "text"},
+        {"value": "Die Gewerkschaft fordert unter anderem eine Lohnerhöhung um 8,5 Prozent und eine Laufzeit des Tarifvertrags von zwölf Monaten. Die Bahn hatte zuletzt 4,2 Prozent mehr Geld bei einer Laufzeit von 30 Monaten angeboten.", "type": "text"},
+        {"value": "Die Deutsche Bahn kritisierte den Streik als unverhältnismäßig und kündigte einen Notfahrplan an. Fahrgäste sollen sich vor Reiseantritt online informieren.", "type": "text"}
+      ],
+      "tags": [{"tag": "Deutsche Bahn"}, {"tag": "Streik"}, {"tag": "GDL"}],
+      "ressort": "inland",
+      "breakingNews": false,
+      "type": "story",
+      "shareURL": "{BASE}/artikel/tagesschau-streik.html"
+    },
+    {
+      "sophoraId": "inflation-202",
+      "title": "Inflationsrate sinkt im September auf 2,1 Prozent",
+      "topline": "Verbraucherpreise",
+      "date": "2026-10-13T10:00:00.000+02:00",
+      "firstSentence": "Die Inflation in Deutschland hat sich im September weiter abgeschwächt.",
+      "content": [
+        {"value": "Die Inflation in Deutschland hat sich im September weiter abgeschwächt. Die Verbraucherpreise lagen nach Angaben des Statistischen Bundesamts um 2,1 Prozent über dem Niveau des Vorjahresmonats; im August hatte die Rate noch 2,4 Prozent betragen.", "type": "text"},
+        {"value": "Energie war 3,2 Prozent günstiger als ein Jahr zuvor, Nahrungsmittel verteuerten sich dagegen um 2,8 Prozent. Dienstleistungen wurden um 3,4 Prozent teurer.", "type": "text"},
+        {"value": "Ökonomen rechnen damit, dass sich die Teuerung bis zum Jahresende in der Nähe von zwei Prozent einpendelt.", "type": "text"}
+      ],
+      "tags": [{"tag": "Inflation"}],
+      "ressort": "inland",
+      "type": "story",
+      "shareURL": "{BASE}/artikel/tagesschau-inflation.html"
+    },
+    {
+      "sophoraId": "alt-203",
+      "title": "Alte Meldung außerhalb des Zeitfensters zur Haushaltsdebatte",
+      "date": "2026-10-11T09:00:00.000+02:00",
+      "firstSentence": "Diese Meldung ist älter als 24 Stunden und darf nicht im Briefing erscheinen.",
+      "content": [{"value": "Diese Meldung ist älter als 24 Stunden und darf nicht im Briefing erscheinen. Sie dient nur dem Test des Zeitfensters.", "type": "text"}],
+      "ressort": "inland",
+      "type": "story",
+      "shareURL": "{BASE}/artikel/tagesschau-alt.html"
+    }
+  ]
+}

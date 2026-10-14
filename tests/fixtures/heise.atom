@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>heise online – Testdaten</title>
+  <id>{BASE}/heise</id>
+  <updated>2026-10-14T05:40:00+02:00</updated>
+  <entry>
+    <title>Kritische Lücke in Mailserver Exim: Update dringend empfohlen</title>
+    <link href="{BASE}/artikel/heise-exim.html"/>
+    <id>heise-exim</id>
+    <published>2026-10-14T05:40:00+02:00</published>
+    <updated>2026-10-14T05:40:00+02:00</updated>
+    <summary>Eine Schwachstelle im verbreiteten Mailserver Exim erlaubt Angreifern das Einschleusen von Schadcode. Admins sollten zügig aktualisieren.</summary>
+    <category term="Security"/>
+    <category term="Exim"/>
+  </entry>
+  <entry>
+    <title>Linux 6.18 freigegeben: Neue Treiber und schnellere Dateisysteme</title>
+    <link href="{BASE}/artikel/heise-kernel.html"/>
+    <id>heise-kernel</id>
+    <published>2026-10-13T21:15:00+02:00</published>
+    <summary>Linus Torvalds hat den Linux-Kernel 6.18 veröffentlicht. Die neue Version bringt Verbesserungen für Btrfs und Bcachefs sowie Treiber für neue Grafikchips.</summary>
+    <category term="Linux"/>
+    <category term="Open Source"/>
+  </entry>
+  <entry>
+    <title>KI-Verordnung: Pflichten für Allzweck-Modelle gelten jetzt</title>
+    <link href="{BASE}/artikel/heise-aiact.html"/>
+    <id>heise-aiact</id>
+    <published>2026-10-13T13:00:00+02:00</published>
+    <summary>Anbieter großer KI-Modelle müssen in der EU ab sofort technische Dokumentationen vorlegen und Trainingsdaten zusammenfassen. Bei Verstößen drohen Bußgelder von bis zu drei Prozent des weltweiten Umsatzes.</summary>
+    <category term="KI"/>
+  </entry>
+  <entry>
+    <title>heise-Angebot: Workshop zu Kubernetes mit Rabatt buchen</title>
+    <link href="{BASE}/artikel/heise-angebot.html"/>
+    <id>heise-angebot</id>
+    <published>2026-10-14T04:00:00+02:00</published>
+    <summary>Im zweitägigen Online-Workshop lernen Teilnehmer den Betrieb von Kubernetes-Clustern. Frühbucher erhalten Rabatt.</summary>
+  </entry>
+</feed>

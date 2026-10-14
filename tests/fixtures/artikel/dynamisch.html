@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="utf-8"><title>Dynamische Übersicht (Testdaten)</title></head>
+<body>
+<main id="liste"></main>
+<script>
+  // Links werden erst per JavaScript eingefügt – statisch ist die Liste leer.
+  var main = document.getElementById("liste");
+  var a = document.createElement("a");
+  a.href = "/artikel/kurzmeldung-1.html";
+  a.textContent = "Ausschuss berät über Digitalisierung der Verwaltung";
+  a.className = "meldung";
+  main.appendChild(a);
+</script>
+</body></html>

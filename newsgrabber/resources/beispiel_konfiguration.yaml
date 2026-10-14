@@ -1,0 +1,440 @@
+# NewsGrabber – Beispielkonfiguration
+#
+# Eigene Konfiguration anlegen:  python -m newsgrabber init -c newsgrabber.yaml
+# Prüfen:                         python -m newsgrabber pruefen -c newsgrabber.yaml
+# Quellen testen:                 python -m newsgrabber quellen --testen -c newsgrabber.yaml
+#
+# Eine eigene Datei muss nur die Werte enthalten, die von dieser Datei abweichen.
+# Ausnahme: "categories" und "sources" ersetzen – wenn angegeben – die Listen hier vollständig.
+# Relative Pfade beziehen sich auf den Ordner der Konfigurationsdatei.
+
+timezone: Europe/Berlin
+
+# Welche Meldungen kommen ins Briefing?
+window:
+  hours: 24            # Zeitfenster in Stunden (montags z. B. per --stunden 72)
+  end_time: null       # Stichzeit am Berichtstag, z. B. "06:00"; leer = bis zum Start des Laufs
+
+collection:
+  # Bitte eine Kontaktmöglichkeit eintragen – Betreiber von Websites sehen den User-Agent in ihren Logs.
+  user_agent: "NewsGrabber/1.0 (+https://github.com/BTS-Sol/NewsGrabber)"
+  timeout: 20                 # Sekunden pro Anfrage
+  retries: 2                  # Wiederholungen bei Netzwerkfehlern, 429 und 5xx (mit Backoff, Retry-After)
+  backoff: 2.0                # Wartezeit vor der 1. Wiederholung (verdoppelt sich)
+  max_workers: 6              # parallele Abrufe (verschiedene Hosts)
+  per_host_interval: 1.5      # Mindestabstand in Sekunden zwischen Anfragen an denselben Host
+  respect_robots_txt: true    # robots.txt beachten (inkl. Crawl-delay) – nicht abschalten
+  max_crawl_delay: 30         # höhere Crawl-delay-Werte werden auf diesen Wert begrenzt
+  max_response_mb: 5
+  max_items_per_source: 40
+  fulltext:
+    enabled: true             # Artikelseiten der besten Kandidaten abrufen und Haupttext extrahieren
+    candidates_per_category: 16
+    max_articles: 80          # Obergrenze je Lauf
+    min_chars: 400            # darunter gilt der Text als Teaser/Bezahlschranke
+  playwright:
+    enabled: true             # nur wirksam, wenn Playwright installiert ist (optional)
+    article_fallback: true    # Artikel mit zu wenig Text im Browser rendern
+    timeout: 30
+    wait_until: domcontentloaded
+    extra_wait_ms: 1500
+    channel: null             # "msedge" bzw. "chrome" nutzt den installierten Browser (kein Download nötig)
+    executable_path: null     # alternativ: Pfad zu einer Chromium-/Chrome-Programmdatei
+
+processing:
+  dedup_threshold: 0.25       # Ähnlichkeit (0–1), ab der Artikel als dieselbe Nachricht gelten
+  min_title_words: 3
+  max_sentences: 40           # ausgewertete Sätze je Artikel
+  boilerplate_patterns: []    # zusätzliche reguläre Ausdrücke für zu entfernende Textzeilen
+
+scoring:
+  weights:                    # Gewichtung der Teilwerte (werden normiert)
+    recency: 0.30             # Aktualität (Halbwertszeit siehe unten)
+    relevance: 0.30           # Schlagwörter der Kategorie, Position im Feed, Textmenge, Eilmeldung
+    quality: 0.20             # Quellenqualität (je Quelle "quality")
+    coverage: 0.20            # Anzahl unabhängiger Quellen, die berichten
+  recency_half_life_hours: 10
+  coverage_saturation: 4      # ab so vielen Quellen volle Punktzahl
+  min_score: 0.2              # schwächere Meldungen nur, um min_items einer Kategorie zu erreichen
+  topic_diversity: 0.85       # Abschlag je bereits gewählter Meldung zum selben Thema
+  history_days: 3             # Wiederholungen aus Berichten der letzten Tage erkennen (Datenbank nötig)
+  repeat_penalty: 0.35        # Faktor für bereits berichtete Meldungen ohne neue Artikel
+  update_penalty: 0.8         # Faktor für Fortsetzungen bereits berichteter Themen
+  undated_penalty: 0.7        # Faktor für Meldungen ohne Veröffentlichungsdatum
+  no_text_penalty: 0.6        # Faktor für Meldungen ohne jeden Text (nur Überschrift)
+  negative_penalty: 0.3       # Faktor für Treffer in negative_keywords
+  negative_keywords:          # Werbung, Kaufberatung, Unterhaltung, Sport
+    - Anzeige
+    - Gewinnspiel
+    - Rabatt
+    - Schnäppchen
+    - Gutschein
+    - Deal
+    - Deals
+    - Angebot des Tages
+    - Black Friday
+    - Prime Day
+    - Kaufberatung
+    - Ratgeber
+    - im Test
+    - Testbericht
+    - Liveblog
+    - Liveticker
+    - Live-Ticker
+    - Horoskop
+    - Lotto
+    - Quiz
+    - Rezept
+    - Bildergalerie
+    - Podcast
+    - Bundesliga
+    - Champions League
+    - Fußball
+    - Spieltag
+    - Formel 1
+    - Olympi
+    - Handball
+    - Basketball
+    - Eishockey
+    - Tennis
+    - DFB
+    - FIFA
+    - UEFA
+    - sponsored
+    - giveaway
+    - coupon
+    - discount
+
+summarizer:
+  backend: auto               # auto | extractive | claude  (auto = Claude, wenn API-Schlüssel gesetzt)
+  language: de                # Berichtssprache (bevorzugte Quellsprache bei extraktiv)
+  max_words_per_source: 70    # extraktiv: höchstens so viele Wörter aus einer einzelnen Quelle
+  claude:
+    model: claude-opus-5-5
+    effort: medium            # low | medium | high | xhigh | max (low senkt Kosten)
+    max_tokens: 16000
+    max_workers: 4            # parallele Anfragen
+    timeout: 180
+    api_key_env: ANTHROPIC_API_KEY
+    max_input_words: 2500     # Textmenge je Nachricht, die an die API geht (Auszüge, nicht ganze Artikel)
+    fallbacks: true           # bei Ablehnung serverseitig auf ein Ersatzmodell ausweichen
+
+report:
+  title: Morgenbriefing
+  output_dir: ausgabe
+  folder: "{date:%Y-%m-%d}"                  # Datumsordner, z. B. ausgabe/2026-10-14/
+  filename: "morgenbriefing_{date:%Y-%m-%d}"
+  formats: [markdown, html, json]
+  min_words: 2000             # Zielumfang; darüber hinaus wird automatisch gekürzt
+  max_words: 3000
+  top_stories: 5              # „Auf einen Blick“
+  templates_dir: null         # eigener Ordner mit briefing.md.j2 / briefing.html.j2
+  show_scores: false          # Bewertung je Meldung anzeigen (zum Feinjustieren)
+  show_source_status: true    # ausgefallene Quellen am Ende des Berichts nennen
+
+database:
+  enabled: true               # SQLite: verarbeitete Artikel, Berichtsverlauf, Quellenstatus, Cache
+  path: newsgrabber.sqlite3
+  retention_days: 90
+
+logging:
+  level: INFO                 # DEBUG | INFO | WARNING | ERROR
+  file: logs/newsgrabber.log  # null = keine Logdatei
+  max_bytes: 2000000
+  backup_count: 7
+
+# ---------------------------------------------------------------------------------------------
+# Kategorien in der Reihenfolge des Berichts.
+#   keywords: erhöhen die Relevanz und ordnen Meldungen gemischter Quellen zu.
+#   topics:   Unterthemen (Anzeige im Bericht, Relevanz, Themenvielfalt).
+# Schlagwort-Regeln: kurze Begriffe (≤ 3 Zeichen) und GROSSBUCHSTABEN exakt als ganzes Wort
+# (KI, EU, CVE); alle anderen als Wortanfang ohne Groß-/Kleinschreibung („Sicherheitslücke“
+# findet „Sicherheitslücken“). Ein abschließendes $ erzwingt die exakte Suche (Rust$).
+# ---------------------------------------------------------------------------------------------
+categories:
+  - key: weltgeschehen
+    title: Weltgeschehen
+    max_items: 7
+    min_items: 3
+    weight: 1.0
+    keywords: [Krieg, Waffenruhe, Waffenstillstand, Angriff, Anschlag, Terror, Gipfel, Vereinte Nationen, UN, UNO,
+               NATO, EU, Europäische Union, Wahl, Präsident, Premierminister, Regierungschef, Sanktion, Konflikt,
+               Flüchtling, Erdbeben, Hurrikan, Überschwemmung, Klimakonferenz, Abkommen, Verhandlung, Diplomat,
+               Militär, Rakete, Geisel, Putsch, Protest, Menschenrechte, Völkermord, Hungersnot,
+               ceasefire, election, summit, sanction, earthquake, United Nations]
+  - key: deutschland
+    title: Deutschland
+    max_items: 7
+    min_items: 3
+    weight: 1.0
+    keywords: [Bundestag, Bundesrat, Bundesregierung, Bundeskanzler, Kanzler, Bundesminister, Ministerin, Minister,
+               Koalition, Opposition, Gesetz, Haushalt, Bundesverfassungsgericht, Bundesgerichtshof, Landtag,
+               Ministerpräsident, Bundespräsident, CDU, CSU, SPD, Grüne, FDP, AfD, Linke, BSW, Rente, Bürgergeld,
+               Mindestlohn, Inflation, Steuer, Bundeswehr, Deutsche Bahn, Streik, Tarif, Migration, Asyl,
+               Abschiebung, Polizei, Staatsanwaltschaft, Urteil, Unwetter, Krankenhaus, Pflege, Schule,
+               Arbeitsmarkt, Arbeitslos, Konjunktur, Bundesland, Bundesländer, Kommune, Deutschland, deutsch]
+  - key: it
+    title: IT & Technologie
+    max_items: 9
+    min_items: 3
+    weight: 1.0
+    keywords: [Software, Hardware, Technologie, Digital, Internet, Cloud, Rechenzentrum, Chip, Halbleiter,
+               Smartphone, Datenschutz, DSGVO, Microsoft, Google, Apple, Amazon, Meta$, Nvidia, Intel$, AMD,
+               Netzpolitik, Digitalisierung]
+    topics:
+      Cybersecurity: [Sicherheitslücke, Schwachstelle, Sicherheitsupdate, Sicherheitsforscher, Patch, CVE, Zero-Day,
+                      Exploit, Ransomware, Malware, Schadsoftware, Trojaner, Phishing, Hackerangriff, Cyberangriff,
+                      Cyber, Datenleck, Datendiebstahl, Botnetz, DDoS, BSI, CERT, Backdoor, Hintertür, Spyware,
+                      Angreifer, Erpresser, vulnerabilit, security flaw, breach, hacker, hacked, cyberattack,
+                      zero-day, CISA, APT, infostealer]
+      KI: [KI, AI, künstliche Intelligenz, artificial intelligence, maschinelles Lernen, machine learning, LLM,
+           Sprachmodell, language model, Chatbot, ChatGPT, OpenAI, Anthropic, Claude$, Gemini, Copilot, Mistral,
+           DeepSeek, Llama$, generative, AI Act, KI-Verordnung, KI-Agent, AI agent, Deepfake]
+      Softwareentwicklung: [Programmier, Entwickler, developer, Python, JavaScript, TypeScript,
+                            Rust$, Kotlin, Java$, Golang, WebAssembly, Compiler, Framework, SDK, API, DevOps,
+                            Kubernetes, Docker, Container, GitHub, GitLab, Visual Studio, VS Code, IDE,
+                            Softwareentwicklung, Bibliothek, library, npm, PyPI, Lieferkette, supply chain]
+      Open Source: [Open Source, Open-Source, quelloffen, freie Software, FOSS, Linux, Kernel, Debian, Ubuntu, Fedora,
+                    Red Hat, openSUSE, Arch Linux, GNOME, KDE, Firefox, Mozilla, Thunderbird, LibreOffice, Apache$,
+                    GPL, Lizenz, Linux Foundation, Free Software Foundation]
+
+# ---------------------------------------------------------------------------------------------
+# Quellen
+#   type:     rss | tagesschau_api | hackernews | json_api | html
+#   category: eine Kategorie oder eine Liste (dann Zuordnung über die Schlagwörter)
+#   quality:  Quellenqualität 0–1 (fließt in die Bewertung ein)
+#   language: de | en
+#   fulltext: Artikelseiten abrufen? Bei Bezahlschranken oder untersagtem Abruf auf false setzen.
+#   fallback: Ersatz (z. B. RSS), falls die Quelle ausfällt oder nichts liefert
+# Nutzungsbedingungen der Anbieter beachten (siehe README, Abschnitt „Rechtliches“).
+# ---------------------------------------------------------------------------------------------
+sources:
+  # ------------------------------------------------------------------ Weltgeschehen
+  - id: tagesschau_ausland
+    name: tagesschau
+    type: tagesschau_api
+    url: https://www.tagesschau.de/api2u/news/?ressort=ausland
+    category: weltgeschehen
+    quality: 0.95
+    fallback: {type: rss, url: "https://www.tagesschau.de/ausland/index~rss2.xml"}
+  - id: dlf_nachrichten
+    name: Deutschlandfunk
+    type: rss
+    url: https://www.deutschlandfunk.de/nachrichten-100.rss
+    category: [weltgeschehen, deutschland]
+    quality: 0.95
+  - id: zdfheute
+    name: ZDFheute
+    type: rss
+    url: https://www.zdf.de/rss/zdf/nachrichten
+    category: [weltgeschehen, deutschland]
+    quality: 0.9
+  - id: dw
+    name: Deutsche Welle
+    type: rss
+    url: https://rss.dw.com/xml/rss-de-top
+    category: [weltgeschehen, deutschland]
+    quality: 0.9
+  - id: spiegel_ausland
+    name: DER SPIEGEL
+    type: rss
+    url: https://www.spiegel.de/ausland/index.rss
+    category: weltgeschehen
+    quality: 0.85
+    fulltext: false           # teils Bezahlschranke – Teaser genügt
+  - id: nzz_international
+    name: NZZ
+    type: rss
+    url: https://www.nzz.ch/international.rss
+    category: weltgeschehen
+    quality: 0.85
+    fulltext: false
+  - id: bbc_world
+    name: BBC News
+    type: rss
+    url: https://feeds.bbci.co.uk/news/world/rss.xml
+    category: weltgeschehen
+    language: en
+    quality: 0.9
+  - id: guardian_world
+    name: The Guardian
+    type: rss
+    url: https://www.theguardian.com/world/rss
+    category: weltgeschehen
+    language: en
+    quality: 0.85
+  - id: aljazeera
+    name: Al Jazeera
+    type: rss
+    url: https://www.aljazeera.com/xml/rss/all.xml
+    category: weltgeschehen
+    language: en
+    quality: 0.8
+    enabled: false
+
+  # ------------------------------------------------------------------ Deutschland
+  - id: tagesschau_inland
+    name: tagesschau
+    type: tagesschau_api
+    url: https://www.tagesschau.de/api2u/news/?ressort=inland
+    category: deutschland
+    quality: 0.95
+    fallback: {type: rss, url: "https://www.tagesschau.de/inland/index~rss2.xml"}
+  - id: spiegel_deutschland
+    name: DER SPIEGEL
+    type: rss
+    url: https://www.spiegel.de/politik/deutschland/index.rss
+    category: deutschland
+    quality: 0.85
+    fulltext: false
+  - id: zeit_politik
+    name: ZEIT ONLINE
+    type: rss
+    url: https://newsfeed.zeit.de/politik/index
+    category: [deutschland, weltgeschehen]
+    quality: 0.85
+    fulltext: false
+  - id: faz_politik
+    name: FAZ
+    type: rss
+    url: https://www.faz.net/rss/aktuell/politik/
+    category: [deutschland, weltgeschehen]
+    quality: 0.85
+    fulltext: false
+  - id: sz_politik
+    name: Süddeutsche Zeitung
+    type: rss
+    url: https://rss.sueddeutsche.de/rss/Politik
+    category: [deutschland, weltgeschehen]
+    quality: 0.85
+    fulltext: false
+
+  # ------------------------------------------------------------------ IT & Technologie
+  - id: heise
+    name: heise online
+    type: rss
+    url: https://www.heise.de/rss/heise-atom.xml
+    category: it
+    quality: 0.9
+  - id: heise_security
+    name: heise online
+    type: rss
+    url: https://www.heise.de/security/rss/news-atom.xml
+    category: it
+    quality: 0.9
+  - id: golem
+    name: Golem.de
+    type: rss
+    url: https://rss.golem.de/rss.php?feed=ATOM1.0
+    category: it
+    quality: 0.85
+  - id: netzpolitik
+    name: netzpolitik.org
+    type: rss
+    url: https://netzpolitik.org/feed/
+    category: [it, deutschland]
+    quality: 0.85
+  - id: bsi
+    name: BSI
+    type: rss
+    url: https://www.bsi.bund.de/SiteGlobals/Functions/RSSFeed/RSSNewsfeed/RSSNewsfeed.xml
+    category: it
+    quality: 0.95
+  - id: t3n
+    name: t3n
+    type: rss
+    url: https://t3n.de/rss.xml
+    category: it
+    quality: 0.75
+  - id: the_decoder
+    name: The Decoder
+    type: rss
+    url: https://the-decoder.de/feed/
+    category: it
+    quality: 0.75
+  - id: linuxnews
+    name: LinuxNews
+    type: rss
+    url: https://linuxnews.de/feed/
+    category: it
+    quality: 0.7
+  - id: lwn
+    name: LWN.net
+    type: rss
+    url: https://lwn.net/headlines/rss
+    category: it
+    language: en
+    quality: 0.9
+    fulltext: false           # Abonnenten-Inhalte in der ersten Woche
+  - id: arstechnica
+    name: Ars Technica
+    type: rss
+    url: https://feeds.arstechnica.com/arstechnica/index
+    category: it
+    language: en
+    quality: 0.85
+  - id: theregister
+    name: The Register
+    type: rss
+    url: https://www.theregister.com/headlines.atom
+    category: it
+    language: en
+    quality: 0.75
+  - id: bleepingcomputer
+    name: BleepingComputer
+    type: rss
+    url: https://www.bleepingcomputer.com/feed/
+    category: it
+    language: en
+    quality: 0.85
+  - id: krebsonsecurity
+    name: Krebs on Security
+    type: rss
+    url: https://krebsonsecurity.com/feed/
+    category: it
+    language: en
+    quality: 0.9
+  - id: hackernews
+    name: Hacker News
+    type: hackernews          # Algolia-API: eine Anfrage für die gesamte Startseite
+    url: https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=50
+    category: it
+    language: en
+    quality: 0.6
+    max_items: 15
+    options: {min_points: 150}
+  - id: thehackernews
+    name: The Hacker News
+    type: rss
+    url: https://feeds.feedburner.com/TheHackersNews
+    category: it
+    language: en
+    quality: 0.7
+    enabled: false
+
+  # ------------------------------------------------------------------ Beispiele (deaktiviert)
+  # Dynamische Übersichtsseite ohne Feed: Links per CSS-Selektor, bei Bedarf mit Playwright gerendert.
+  - id: bundestag_hib
+    name: Deutscher Bundestag (hib)
+    type: html
+    url: https://www.bundestag.de/presse/hib
+    category: deutschland
+    quality: 0.9
+    enabled: false
+    max_items: 15
+    options:
+      link_selector: "a[href*='/presse/hib/kurzmeldungen-']"   # an die Seite anpassen
+      render: auto            # static | browser | auto
+  # Generische JSON-API mit API-Schlüssel aus einer Umgebungsvariablen (hier: NewsAPI.org).
+  - id: newsapi_de
+    name: NewsAPI
+    type: json_api
+    url: https://newsapi.org/v2/top-headlines?country=de
+    category: [deutschland, weltgeschehen]
+    quality: 0.6
+    enabled: false
+    options:
+      api_key_env: NEWSAPI_KEY
+      api_key_header: X-Api-Key
+      items_path: articles
+      fields: {title: title, url: url, published: publishedAt, teaser: description, author: author}

@@ -1,0 +1,8 @@
+{
+  "hits": [
+    {"objectID": "4100001", "title": "Critical Exim vulnerability allows remote code execution", "url": "{BASE}/artikel/heise-exim.html", "points": 412, "num_comments": 233, "created_at_i": 1791946800, "author": "alice"},
+    {"objectID": "4100002", "title": "Show HN: A tiny static site generator written in Rust", "url": "{BASE}/artikel/hn-ssg.html", "points": 88, "num_comments": 31, "created_at_i": 1791943200, "author": "bob"},
+    {"objectID": "4100003", "title": "Why we moved our CI from containers back to virtual machines", "url": "{BASE}/artikel/hn-ci.html", "points": 305, "num_comments": 190, "created_at_i": 1791912600, "author": "carol"}
+  ],
+  "nbHits": 3
+}

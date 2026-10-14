@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+  <title>Deutschlandfunk – Nachrichten (Testdaten)</title>
+  <link>{BASE}/</link>
+  <description>Testfeed</description>
+  <item>
+    <title>Pflegeversicherung: Bundestag stimmt für höhere Beiträge</title>
+    <link>{BASE}/artikel/dlf-pflege.html?utm_source=rss&amp;utm_medium=feed</link>
+    <pubDate>Tue, 13 Oct 2026 16:05:00 +0000</pubDate>
+    <description><![CDATA[<p>Der Bundestag hat mit den Stimmen der Koalition die Reform der Pflegeversicherung verabschiedet. Der Beitragssatz steigt im Januar auf 3,9 Prozent, gleichzeitig wird das Pflegegeld erhöht. Sozialverbände sprechen von einem überfälligen Schritt, die Arbeitgeber warnen vor steigenden Lohnnebenkosten. <a href="{BASE}/artikel/dlf-pflege.html">mehr</a></p>]]></description>
+    <guid>dlf-pflege-1</guid>
+  </item>
+  <item>
+    <title>UN-Klimagipfel: Staaten vereinbaren Fonds zur Klimaanpassung</title>
+    <link>{BASE}/artikel/dlf-klima.html</link>
+    <pubDate>Tue, 13 Oct 2026 23:58:00 +0000</pubDate>
+    <description>Die Teilnehmer der UN-Klimakonferenz in Nairobi haben sich auf einen Fonds zur Anpassung an den Klimawandel verständigt. Er soll ab 2028 jährlich mindestens 40 Milliarden Dollar umfassen. Besonders betroffene Länder in Afrika und Asien sollen bevorzugt Mittel erhalten. Kritiker bemängeln fehlende Zusagen zum Ausstieg aus Kohle, Öl und Gas.</description>
+    <guid>dlf-klima-1</guid>
+  </item>
+  <item>
+    <title>Bolivien: Präsidentenwahl geht in die Stichwahl</title>
+    <link>{BASE}/artikel/dlf-bolivien.html</link>
+    <pubDate>Tue, 13 Oct 2026 12:30:00 +0000</pubDate>
+    <description>Bei der Präsidentenwahl in Bolivien hat keiner der Kandidaten die absolute Mehrheit erreicht. Nach Auszählung fast aller Stimmen liegt der frühere Wirtschaftsminister mit 38 Prozent vorn. Die Stichwahl ist für den 2. November angesetzt. Die Wahlbeteiligung lag bei 87 Prozent, in Bolivien gilt Wahlpflicht.</description>
+    <guid>dlf-bolivien-1</guid>
+  </item>
+  <item>
+    <title>Bundesliga: Spitzenreiter gewinnt erneut deutlich</title>
+    <link>{BASE}/artikel/dlf-fussball.html</link>
+    <pubDate>Tue, 13 Oct 2026 20:30:00 +0000</pubDate>
+    <description>Der Tabellenführer der Fußball-Bundesliga hat auch sein siebtes Spiel in Folge gewonnen. Das Team setzte sich am Abend mit 4:0 durch und baute den Vorsprung auf sechs Punkte aus.</description>
+    <guid>dlf-fussball-1</guid>
+  </item>
+  <item>
+    <title>Bahn: GDL ruft zu 24-stündigem Streik auf</title>
+    <link>{BASE}/artikel/dlf-streik.html</link>
+    <pubDate>Wed, 14 Oct 2026 03:35:00 +0000</pubDate>
+    <description>Die Gewerkschaft Deutscher Lokomotivführer hat ihre Mitglieder für Donnerstag zu einem bundesweiten Streik bei der Deutschen Bahn aufgerufen. Betroffen sind Fern-, Regional- und Güterverkehr. Die Bahn will einen Notfahrplan anbieten.</description>
+    <guid>dlf-streik-1</guid>
+  </item>
+</channel>
+</rss>
